@@ -1,11 +1,5 @@
 import React from "react";
 
-interface PlayerInfoProps {
-  playerName: PlayerName | null;
-  playerLevel: PlayerLevel | null;
-  playerIconID: playerIconID | null;
-}
-
 export default function PlayerInfo({
   playerName,
   playerTagline,

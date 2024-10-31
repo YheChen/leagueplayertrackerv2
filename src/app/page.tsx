@@ -53,7 +53,10 @@ export default function Home() {
     setName(newUsername);
     setTagline(newTagline);
   };
-
+  const handleSearch = () => {
+    // Trigger the search function, e.g., calling getPlayerInfo
+    getPlayerInfo();
+  };
   function getPlayerInfo() {
     axios
       .get<SummonerData>("http://localhost:4000/summonerV4", {
@@ -103,6 +106,7 @@ export default function Home() {
         console.error("Error fetching player info matchV5:", error);
       });
   }
+
   return (
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
@@ -112,7 +116,10 @@ export default function Home() {
       >
         <Header />
         <div className="flex items-center mt-4">
-          <SearchBar onChange={handleSearchChange} />
+          <SearchBar
+            onChange={handleSearchChange}
+            onEnterPress={handleSearch}
+          />
           <SearchButton text="SEARCH" onClick={() => getPlayerInfo()} />
         </div>
       </div>
@@ -142,7 +149,14 @@ export default function Home() {
       >
         {/* Left-Aligned Player Rank Data, with spacing from Player Info */}
         <div className="mt-3">
-          <PlayerRankData />
+          <PlayerRankData
+            playerRank={playerRank}
+            playerRankTier={playerRankTier}
+            playerLP={playerLP}
+            playerWins={playerWins}
+            playerLosses={playerLosses}
+            playerWinRate={playerWinRate}
+          />
         </div>
       </div>
     </div>

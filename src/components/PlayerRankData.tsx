@@ -1,7 +1,14 @@
 import React from "react";
 import Image from "next/image";
 
-export default function PlayerRankData() {
+export default function PlayerRankData({
+  playerRank,
+  playerRankTier,
+  playerLP,
+  playerWins,
+  playerLosses,
+  playerWinRate,
+}) {
   return (
     <div
       className="bg-white text-white p-4 rounded-lg shadow-lg"
@@ -12,19 +19,23 @@ export default function PlayerRankData() {
       </div>
       <div className="flex items-center">
         <Image
-          src="/images/MASTER.png"
+          src={`/images/${playerRankTier}.png`}
           alt="Master Rank"
           width={50}
           height={50}
           className="mr-4"
         />
         <div>
-          <h4 className="text-2xl text-black font-bold">Grandmaster</h4>
-          <p className="text-gray-500">100 LP</p>
+          <h4 className="text-2xl text-black font-bold">
+            {playerRankTier} {playerRank}
+          </h4>
+          <p className="text-gray-500">{playerLP} LP</p>
         </div>
         <div className="ml-auto text-right">
-          <p className="text-gray-500">888W 888L</p>
-          <p className="text-gray-500">40% Winrate</p>
+          <p className="text-gray-500">
+            {playerWins}W {playerLosses}L
+          </p>
+          <p className="text-gray-500">{playerWinRate}% Winrate</p>
         </div>
       </div>
     </div>
