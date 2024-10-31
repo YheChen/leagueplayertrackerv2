@@ -11,8 +11,8 @@ export default function Home() {
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
       <div
-        className="flex flex-col items-center w-full bg-blue-500"
-        style={{ height: "35vh" }}
+        className="flex flex-col items-center justify-center w-full bg-blue-500"
+        style={{ height: "55vh" }}
       >
         <Header />
         <div className="flex items-center mt-4">
@@ -25,7 +25,7 @@ export default function Home() {
       <div
         className="flex items-center mt-[-vh]"
         style={{
-          height: "60vh", // 1/3 of the screen height
+          height: "80vh", // 1/3 of the screen height
           width: "33vw", // 1/3 of the screen width
           marginLeft: "14.28vw", // Offset of 1/7 of the screen width
         }}
