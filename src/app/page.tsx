@@ -11,7 +11,7 @@ export default function Home() {
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
       <div
-        className="flex flex-col items-center w-full"
+        className="flex flex-col items-center w-full mt-[5vh]"
         style={{ height: "25vh" }}
       >
         <Header />
@@ -23,9 +23,9 @@ export default function Home() {
 
       {/* Middle Layer */}
       <div
-        className="flex items-center"
+        className="flex items-center mt-[-vh]"
         style={{
-          height: "33vh", // 1/3 of the screen height
+          height: "60vh", // 1/3 of the screen height
           width: "33vw", // 1/3 of the screen width
           marginLeft: "14.28vw", // Offset of 1/7 of the screen width
         }}
@@ -33,16 +33,15 @@ export default function Home() {
         <PlayerInfo />
       </div>
 
-      {/* Bottom Layer */}
+      {/* Bottom Layer with Gray Background */}
       <div
-        className="flex items-center mt-[-8vh]"
-        style={{
-          height: "25vh", // 1/4 of the screen height
-          width: "33vw", // 1/3 of the screen width
-          marginLeft: "14.28vw", // Same offset as middle layer for alignment
-        }}
+        className="flex flex-col items-start w-full bg-gray-200"
+        style={{ height: "75vh", paddingLeft: "14.28vw" }}
       >
-        <PlayerRankData />
+        {/* Left-Aligned Player Rank Data, with spacing from Player Info */}
+        <div className="mt-3">
+          <PlayerRankData />
+        </div>
       </div>
     </div>
   );
