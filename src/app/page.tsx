@@ -25,7 +25,8 @@ export default function Home() {
       <div
         className="flex items-center mt-[-vh]"
         style={{
-          height: "80vh", // 1/3 of the screen height
+          transform: "translateY(-25%)",
+          height: "100vh", // 1/3 of the screen height
           width: "33vw", // 1/3 of the screen width
           marginLeft: "14.28vw", // Offset of 1/7 of the screen width
         }}
