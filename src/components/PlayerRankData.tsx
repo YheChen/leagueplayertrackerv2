@@ -3,7 +3,10 @@ import Image from "next/image";
 
 export default function PlayerRankData() {
   return (
-    <div className="bg-white text-white p-4 rounded-lg border-black shadow-lg w-200">
+    <div
+      className="bg-white text-white p-4 rounded-lg shadow-lg"
+      style={{ width: "450px", height: "150px" }}
+    >
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-black text-lg font-semibold">Ranked Solo/Duo</h3>
       </div>
