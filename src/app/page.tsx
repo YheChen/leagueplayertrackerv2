@@ -11,13 +11,13 @@ export default function Home() {
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
       <div
-        className="flex flex-col items-center w-full mt-[5vh]"
-        style={{ height: "25vh" }}
+        className="flex flex-col items-center w-full bg-blue-500"
+        style={{ height: "35vh" }}
       >
         <Header />
         <div className="flex items-center mt-4">
           <SearchBar />
-          <SearchButton text="Search" />
+          <SearchButton text="SEARCH" />
         </div>
       </div>
 
