@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:api": "ts-node src/server/proxyServer.tsx",
+    "start:api": "nodemon src/server/proxyServer.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/axios": "^0.9.36",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "express": "^4.21.1",
@@ -29,6 +30,7 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3"
   }
 }
