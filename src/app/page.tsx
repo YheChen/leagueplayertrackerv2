@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import SearchButton from "@/components/SearchButton";
@@ -7,6 +9,14 @@ import PlayerRankData from "@/components/PlayerRankData";
 import Match from "@/components/Match";
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const [tagline, setTagline] = useState("");
+
+  const handleSearchChange = (newName: string, newTagline: string) => {
+    setName(newName);
+    setTagline(newTagline);
+  };
+
   return (
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
@@ -16,7 +26,7 @@ export default function Home() {
       >
         <Header />
         <div className="flex items-center mt-4">
-          <SearchBar />
+          <SearchBar onChange={handleSearchChange} />
           <SearchButton text="SEARCH" />
         </div>
       </div>
