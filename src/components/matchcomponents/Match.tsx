@@ -20,9 +20,15 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
     }
   }
 
+  const isWin = playerData.win;
+
   return (
-    <div className={`w-full flex p-4 rounded-lg shadow-md border-l-4 mb-4`}>
-      <GameStatus gameData={gameData} playerData={playerData} />
+    <div
+      className={`w-full flex p-4 rounded-lg shadow-md border-l-4 mb-4 ${
+        isWin ? "bg-blue-100 border-blue-500" : "bg-red-100 border-red-500"
+      }`}
+    >
+      <GameStatus gameData={gameData} playerData={playerData} isWin={isWin} />
       {/* <PlayerChamp gameData={gameData} /> */}
     </div>
   );

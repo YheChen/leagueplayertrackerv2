@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-export default function GameStatus({ gameData, playerData }) {
+export default function GameStatus({ gameData, playerData isWin }) {
   function getGameMode(queueId) {
     switch (queueId) {
       case 0:
@@ -36,19 +36,37 @@ export default function GameStatus({ gameData, playerData }) {
         return "Unknown Gamemode";
     }
   }
+
+
   return (
-    <div>
-      <div className="text-blue-600 font-semibold text-lg">
+    <div className="p-4 rounded-lg shadow-lg bg-white">
+      {/* Game Mode */}
+      <div
+        className={`${
+          isWin ? "text-blue-600" : "text-red-600"
+        } font-semibold text-lg`}
+      >
         {getGameMode(gameData.info.queueId)}
       </div>
+
+      {/* Game Creation Time */}
       <div className="text-gray-500 text-sm mt-1">
         {moment(gameData.info.gameCreation).fromNow()}
       </div>
-      <div className="border-b border-gray-200 my-2 w-1/5"></div>{" "}
-      {/* Divider line */}
-      <div className={`text-gray-700 font-semibold`}>
-        {gameData.win ? "Victory" : "Defeat"}
+
+      {/* Divider Line */}
+      <div className="border-b border-gray-200 my-2 w-1/5"></div>
+
+      {/* Win/Loss Status */}
+      <div
+        className={`${
+          isWin ? "text-blue-600" : "text-red-600"
+        } font-semibold text-xl`}
+      >
+        {isWin ? "Victory" : "Defeat"}
       </div>
+
+      {/* Game Duration */}
       <div className="text-gray-500 text-sm mt-1">
         {Math.floor(gameData.info.gameDuration / 60)}m{" "}
         {gameData.info.gameDuration % 60}s
