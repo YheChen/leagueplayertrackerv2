@@ -16,7 +16,7 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
       playerList.at(i).riotIdTagline == searchTagline
     ) {
       playerData = playerList.at(i);
-      console.log(playerData);
+      break;
     }
   }
 
@@ -29,7 +29,7 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
       }`}
     >
       <GameStatus gameData={gameData} playerData={playerData} isWin={isWin} />
-      {/* <PlayerChamp gameData={gameData} /> */}
+      <PlayerChamp playerData={playerData} />
     </div>
   );
 }

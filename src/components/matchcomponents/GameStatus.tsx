@@ -1,13 +1,13 @@
 import React from "react";
 import moment from "moment";
 
-export default function GameStatus({ gameData, playerData isWin }) {
+export default function GameStatus({ gameData, playerData, isWin }) {
   function getGameMode(queueId) {
     switch (queueId) {
       case 0:
         return "Custom";
       case 400:
-        return "Normal Draft";
+        return "Normal";
       case 420:
         return "Ranked Solo";
       case 430:
@@ -37,9 +37,8 @@ export default function GameStatus({ gameData, playerData isWin }) {
     }
   }
 
-
   return (
-    <div className="p-4 rounded-lg shadow-lg bg-white">
+    <div className="min-w-[100px] max-w-[100px] mr-auto">
       {/* Game Mode */}
       <div
         className={`${
@@ -55,7 +54,11 @@ export default function GameStatus({ gameData, playerData isWin }) {
       </div>
 
       {/* Divider Line */}
-      <div className="border-b border-gray-200 my-2 w-1/5"></div>
+      <div
+        className={`border-b my-2 w-full ${
+          isWin ? "border-blue-700" : "border-red-700"
+        }`}
+      ></div>
 
       {/* Win/Loss Status */}
       <div

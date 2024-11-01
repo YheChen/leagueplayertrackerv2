@@ -27,6 +27,8 @@ interface MatchData {
 }
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
+
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
   //summoner v4 data
@@ -57,56 +59,96 @@ export default function Home() {
     // Trigger the search function, e.g., calling getPlayerInfo
     getPlayerInfo();
   };
-  function getPlayerInfo() {
-    axios
-      .get<SummonerData>("http://localhost:4000/summonerV4", {
-        params: { username: searchUsername, tagline: searchTagline },
-      })
-      .then((response) => {
-        setShowPlayerInfo(true);
-        setPlayerLVL(response.data.summonerLevel);
-        setPlayerData(response.data);
-        setPlayerIconID(response.data.profileIconId);
-      })
-      .catch((error) => {
-        console.error("Error fetching player info summonerV4:", error);
-      });
-    axios
-      .get<LeagueEntry[]>("http://localhost:4000/leagueV4", {
-        params: { username: searchUsername, tagline: searchTagline },
-      })
-      .then((response) => {
-        const data = response.data;
-        setPlayerRankData(data);
-        setPlayerLVL(playerData.summonerLevel);
-        const firstEntry = data[0];
-        if (data.length > 0) {
-          setPlayerRank(firstEntry.rank);
-          setPlayerRankTier(firstEntry.tier);
-          setPlayerLP(firstEntry.leaguePoints);
-          setPlayerWins(firstEntry.wins);
-          setPlayerLosses(firstEntry.losses);
-          const winRate = Math.round(
-            (100 * firstEntry.wins) / (firstEntry.wins + firstEntry.losses)
-          );
-          setPlayerWinRate(winRate);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching player info leaguev4:", error);
-      });
-    axios
-      .get<MatchData[]>("http://localhost:4000/matchV5", {
-        params: { username: searchUsername, tagline: searchTagline },
-      })
-      .then((response) => {
-        setGameList(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching player info matchV5:", error);
-      });
-  }
+  async function getPlayerInfo() {
+    setLoading(true); // Set loading to true at the start
 
+    try {
+      // Fetch Summoner Data
+      const summonerResponse = await axios.get<SummonerData>(
+        "http://localhost:4000/summonerV4",
+        {
+          params: { username: searchUsername, tagline: searchTagline },
+        }
+      );
+      setShowPlayerInfo(true);
+      setPlayerLVL(summonerResponse.data.summonerLevel);
+      setPlayerData(summonerResponse.data);
+      setPlayerIconID(summonerResponse.data.profileIconId);
+
+      // Fetch League Data
+      const leagueResponse = await axios.get<LeagueEntry[]>(
+        "http://localhost:4000/leagueV4",
+        {
+          params: { username: searchUsername, tagline: searchTagline },
+        }
+      );
+      const data = leagueResponse.data;
+      setPlayerRankData(data);
+      if (data.length > 0) {
+        const firstEntry = data[0];
+        setPlayerRank(firstEntry.rank);
+        setPlayerRankTier(firstEntry.tier);
+        setPlayerLP(firstEntry.leaguePoints);
+        setPlayerWins(firstEntry.wins);
+        setPlayerLosses(firstEntry.losses);
+        const winRate = Math.round(
+          (100 * firstEntry.wins) / (firstEntry.wins + firstEntry.losses)
+        );
+        setPlayerWinRate(winRate);
+      }
+
+      // Fetch Match History Data
+      const matchResponse = await axios.get<MatchData[]>(
+        "http://localhost:4000/matchV5",
+        {
+          params: { username: searchUsername, tagline: searchTagline },
+        }
+      );
+      setGameList(matchResponse.data);
+    } catch (error) {
+      console.error("Error fetching player info:", error);
+    } finally {
+      setLoading(false); // Set loading to false after all requests finish
+    }
+  }
+  if (loading) {
+    return (
+      <div className="h-screen flex flex-col items-start">
+        {/* Top Layer */}
+        <div
+          className="flex flex-col items-center justify-center w-full bg-blue-500"
+          style={{ height: "55vh", minHeight: "20vh" }}
+        >
+          <Header />
+          <div className="flex items-center mt-4 gap-4">
+            <SearchBar
+              onChange={handleSearchChange}
+              onEnterPress={handleSearch}
+            />
+            <SearchButton text="SEARCH" onClick={() => getPlayerInfo()} />
+          </div>
+        </div>
+
+        {/* Middle Layer */}
+        <div
+          className="flex items-center mt-[-vh] "
+          style={{
+            transform: "translateY(-25%)",
+            height: "100vh", // 1/3 of the screen height
+            minHeight: "50vh",
+            width: "33vw", // 1/3 of the screen width
+            marginLeft: "14.28vw", // Offset of 1/7 of the screen width
+          }}
+        ></div>
+
+        {/* Bottom Layer with Gray Background */}
+        <div
+          className="flex items-start w-full bg-white px-[14.28vw]"
+          style={{ height: "75vh" }}
+        ></div>
+      </div>
+    );
+  }
   return (
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
