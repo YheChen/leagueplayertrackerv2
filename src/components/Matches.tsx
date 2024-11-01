@@ -3,7 +3,7 @@ import Match from "./matchcomponents/Match";
 
 export default function Matches({ gameList, searchUsername, searchTagline }) {
   return (
-    <div>
+    <div className="flex flex-col w-full">
       {gameList.length > 0 ? (
         gameList.map((gameData, index) => (
           <Match

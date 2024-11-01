@@ -162,12 +162,11 @@ export default function Home() {
 
         {/* Matches Container */}
         <div
-          className="mt-3 bg-gray-200"
+          className="container mx-auto w-full px-4 bg-gray-200 pt-3"
           style={{
             width: "60vw",
             maxWidth: "66%",
             margin: "0 auto",
-            paddingRight: "14.28vw",
           }}
         >
           <Matches gameList={gameList} />
