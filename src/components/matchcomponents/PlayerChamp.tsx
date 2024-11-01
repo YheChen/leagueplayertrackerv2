@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PlayerChamp({ playerData }) {
   return (
-    <div className="inline-flex ml-[17rem] mt-4 items-center">
+    <div>
       <div className="relative">
         <img
           src={`https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/${playerData.championName}.png`}

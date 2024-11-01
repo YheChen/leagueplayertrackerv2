@@ -55,7 +55,7 @@ export default function GameStatus({ gameData, playerData, isWin }) {
 
       {/* Divider Line */}
       <div
-        className={`border-b my-2 w-full ${
+        className={`border-b my-2 w-1/2 ${
           isWin ? "border-blue-700" : "border-red-700"
         }`}
       ></div>
