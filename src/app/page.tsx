@@ -9,112 +9,69 @@ import PlayerInfo from "../components/PlayerInfo";
 import PlayerRankData from "../components/PlayerRankData";
 import Matches from "../components/Matches";
 
-interface SummonerData {
-  summonerLevel: number;
-  profileIconId: number;
-}
-
-interface LeagueEntry {
-  queueType: string;
-  tier: string;
-  rank: string;
-  leaguePoints: number;
-  wins: number;
-  losses: number;
-}
-interface MatchData {
-  // Define the fields based on your API response structure
-}
-
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
-
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
-  //summoner v4 data
-  const [showPlayerInfo, setShowPlayerInfo] = useState(false); // Only display info if the button is pressed
-  const [searchUsername, setSearchUsername] = useState("");
-  const [searchTagline, setSearchTagline] = useState("");
   const [playerData, setPlayerData] = useState(null);
-  const [playerLVL, setPlayerLVL] = useState(null);
-  const [playerIconID, setPlayerIconID] = useState(null);
-  //league v4 data
-  const [playerRankData, setPlayerRankData] = useState(null); // League-v4
-  const [playerRank, setPlayerRank] = useState(null); // Rank is I, II, III, IV
-  const [playerRankTier, setPlayerRankTier] = useState(null); // Tier is Diamond, Master, Gold etc
-  const [playerLP, setPlayerLP] = useState(0);
-  const [playerWins, setPlayerWins] = useState(0);
-  const [playerLosses, setPlayerLosses] = useState(0);
-  const [playerWinRate, setPlayerWinRate] = useState<number | null>(null);
-  ///match v5 data
+  const [playerRankData, setPlayerRankData] = useState(null);
   const [gameList, setGameList] = useState([]);
 
-  const handleSearchChange = (newUsername: string, newTagline: string) => {
-    setSearchUsername(newUsername);
-    setSearchTagline(newTagline);
+  const handleSearchChange = (newUsername, newTagline) => {
     setName(newUsername);
     setTagline(newTagline);
   };
-  const handleSearch = () => {
-    // Trigger the search function, e.g., calling getPlayerInfo
-    getPlayerInfo();
-  };
-  async function getPlayerInfo() {
-    setLoading(true); // Set loading to true at the start
+
+  const handleSearch = async () => {
+    setLoading(true);
     setSearched(false);
 
     try {
       // Fetch Summoner Data
-      const summonerResponse = await axios.get<SummonerData>(
+      const summonerResponse = await axios.get(
         "http://localhost:4000/summonerV4",
         {
-          params: { username: searchUsername, tagline: searchTagline },
+          params: { username: name, tagline },
         }
       );
-      setShowPlayerInfo(true);
-      setPlayerLVL(summonerResponse.data.summonerLevel);
       setPlayerData(summonerResponse.data);
-      setPlayerIconID(summonerResponse.data.profileIconId);
 
       // Fetch League Data
-      const leagueResponse = await axios.get<LeagueEntry[]>(
-        "http://localhost:4000/leagueV4",
-        {
-          params: { username: searchUsername, tagline: searchTagline },
-        }
-      );
-      const data = leagueResponse.data;
-      setPlayerRankData(data);
-      if (data.length > 0) {
-        const firstEntry = data[0];
-        setPlayerRank(firstEntry.rank);
-        setPlayerRankTier(firstEntry.tier);
-        setPlayerLP(firstEntry.leaguePoints);
-        setPlayerWins(firstEntry.wins);
-        setPlayerLosses(firstEntry.losses);
-        const winRate = Math.round(
-          (100 * firstEntry.wins) / (firstEntry.wins + firstEntry.losses)
-        );
-        setPlayerWinRate(winRate);
+      const leagueResponse = await axios.get("http://localhost:4000/leagueV4", {
+        params: { username: name, tagline },
+      });
+
+      // Ensure we have data and take the first entry (for solo queue or primary rank)
+      if (leagueResponse.data && leagueResponse.data.length > 0) {
+        const primaryRank = leagueResponse.data[0];
+        setPlayerRankData({
+          rank: primaryRank.rank,
+          tier: primaryRank.tier,
+          leaguePoints: primaryRank.leaguePoints,
+          wins: primaryRank.wins,
+          losses: primaryRank.losses,
+          winRate: Math.round(
+            (100 * primaryRank.wins) / (primaryRank.wins + primaryRank.losses)
+          ),
+        });
+      } else {
+        setPlayerRankData(null); // No rank data available
       }
 
       // Fetch Match History Data
-      const matchResponse = await axios.get<MatchData[]>(
-        "http://localhost:4000/matchV5",
-        {
-          params: { username: searchUsername, tagline: searchTagline },
-        }
-      );
+      const matchResponse = await axios.get("http://localhost:4000/matchV5", {
+        params: { username: name, tagline },
+      });
       setGameList(matchResponse.data);
 
       setSearched(true);
     } catch (error) {
       console.error("Error fetching player info:", error);
     } finally {
-      setLoading(false); // Set loading to false after all requests finish
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="h-screen flex flex-col items-start">
@@ -129,62 +86,76 @@ export default function Home() {
             onChange={handleSearchChange}
             onEnterPress={handleSearch}
           />
-          <SearchButton text="SEARCH" onClick={() => getPlayerInfo()} />
+          <SearchButton text="SEARCH" onClick={handleSearch} />
         </div>
       </div>
 
-      {/* Middle Layer */}
-      <div
-        className="flex items-center mt-[-vh] "
-        style={{
-          transform: "translateY(-25%)",
-          height: "100vh", // 1/3 of the screen height
-          minHeight: "50vh",
-          width: "33vw", // 1/3 of the screen width
-          marginLeft: "14.28vw", // Offset of 1/7 of the screen width
-        }}
-      >
-        <PlayerInfo
-          playerName={name}
-          playerTagline={tagline}
-          playerLevel={playerLVL}
-          playerIconID={playerIconID}
-        />
-      </div>
-
-      {/* Bottom Layer with Gray Background */}
-      <div
-        className="flex items-start w-full bg-gray-200 px-[10vw]"
-        style={{ height: "75vh" }}
-      >
-        {/* Left-Aligned Player Rank Data, with spacing from Player Info */}
-        <div className="mt-3">
-          <PlayerRankData
-            playerRank={playerRank}
-            playerRankTier={playerRankTier}
-            playerLP={playerLP}
-            playerWins={playerWins}
-            playerLosses={playerLosses}
-            playerWinRate={playerWinRate}
-          />
+      {loading ? (
+        <div className="flex justify-center items-center h-full w-full text-xl text-gray-700">
+          Loading...
         </div>
+      ) : searched ? (
+        <>
+          {/* Middle Layer with Player Info */}
+          <div
+            className="flex items-center"
+            style={{
+              transform: "translateY(-25%)",
+              height: "100vh",
+              minHeight: "50vh",
+              width: "33vw",
+              marginLeft: "14.28vw",
+            }}
+          >
+            <PlayerInfo
+              playerName={name}
+              playerTagline={tagline}
+              playerLevel={playerData?.summonerLevel}
+              playerIconID={playerData?.profileIconId}
+            />
+          </div>
 
-        {/* Matches Container */}
-        <div
-          className="container mx-auto w-full px-4 bg-gray-200 pt-3"
-          style={{
-            width: "60vw",
-            maxWidth: "66%",
-            margin: "0 auto",
-          }}
-        >
-          <Matches
-            gameList={gameList}
-            searchUsername={searchUsername}
-            searchTagline={searchTagline}
-          />
+          {/* Bottom Layer with Gray Background */}
+          <div
+            className="flex items-start w-full bg-gray-200 px-[10vw]"
+            style={{ height: "75vh" }}
+          >
+            {playerRankData ? (
+              <div className="mt-3">
+                <PlayerRankData
+                  playerRank={playerRankData.rank}
+                  playerRankTier={playerRankData.tier}
+                  playerLP={playerRankData.leaguePoints}
+                  playerWins={playerRankData.wins}
+                  playerLosses={playerRankData.losses}
+                  playerWinRate={playerRankData.winRate}
+                />
+              </div>
+            ) : (
+              <div className="mt-3 text-gray-500">Ranked data unavailable</div>
+            )}
+
+            {/* Matches Container */}
+            <div
+              className="container mx-auto w-full px-4 bg-gray-200 pt-3"
+              style={{ width: "60vw", maxWidth: "66%", margin: "0 auto" }}
+            >
+              <Matches
+                gameList={gameList}
+                searchUsername={name}
+                searchTagline={tagline}
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center w-full h-full text-gray-500 text-xl">
+          <p>
+            Enter a Riot ID and click "SEARCH" or [ENTER] to view player
+            information
+          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 }
