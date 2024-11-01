@@ -7,7 +7,7 @@ import SearchBar from "../components/SearchBar";
 import SearchButton from "../components/SearchButton";
 import PlayerInfo from "../components/PlayerInfo";
 import PlayerRankData from "../components/PlayerRankData";
-import Match from "../components/Match";
+import Matches from "../components/Matches";
 
 interface SummonerData {
   summonerLevel: number;
@@ -112,10 +112,10 @@ export default function Home() {
       {/* Top Layer */}
       <div
         className="flex flex-col items-center justify-center w-full bg-blue-500"
-        style={{ height: "55vh" }}
+        style={{ height: "55vh", minHeight: "20vh" }}
       >
         <Header />
-        <div className="flex items-center mt-4">
+        <div className="flex items-center mt-4 gap-4">
           <SearchBar
             onChange={handleSearchChange}
             onEnterPress={handleSearch}
@@ -126,10 +126,11 @@ export default function Home() {
 
       {/* Middle Layer */}
       <div
-        className="flex items-center mt-[-vh]"
+        className="flex items-center mt-[-vh] "
         style={{
           transform: "translateY(-25%)",
           height: "100vh", // 1/3 of the screen height
+          minHeight: "50vh",
           width: "33vw", // 1/3 of the screen width
           marginLeft: "14.28vw", // Offset of 1/7 of the screen width
         }}
@@ -144,8 +145,8 @@ export default function Home() {
 
       {/* Bottom Layer with Gray Background */}
       <div
-        className="flex flex-col items-start w-full bg-gray-200"
-        style={{ height: "75vh", paddingLeft: "14.28vw" }}
+        className="flex items-start w-full bg-gray-200 px-[14.28vw]"
+        style={{ height: "75vh" }}
       >
         {/* Left-Aligned Player Rank Data, with spacing from Player Info */}
         <div className="mt-3">
@@ -157,6 +158,19 @@ export default function Home() {
             playerLosses={playerLosses}
             playerWinRate={playerWinRate}
           />
+        </div>
+
+        {/* Matches Container */}
+        <div
+          className="mt-3 bg-gray-200"
+          style={{
+            width: "60vw",
+            maxWidth: "66%",
+            margin: "0 auto",
+            paddingRight: "14.28vw",
+          }}
+        >
+          <Matches gameList={gameList} />
         </div>
       </div>
     </div>

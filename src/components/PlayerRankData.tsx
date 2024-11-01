@@ -20,7 +20,7 @@ export default function PlayerRankData({
       <div className="flex items-center">
         <Image
           src={`/images/${playerRankTier}.png`}
-          alt="Master Rank"
+          alt="Unranked"
           width={50}
           height={50}
           className="mr-4"
