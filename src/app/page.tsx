@@ -169,7 +169,11 @@ export default function Home() {
             margin: "0 auto",
           }}
         >
-          <Matches gameList={gameList} />
+          <Matches
+            gameList={gameList}
+            searchUsername={searchUsername}
+            searchTagline={searchTagline}
+          />
         </div>
       </div>
     </div>

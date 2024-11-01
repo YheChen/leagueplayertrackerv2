@@ -70,12 +70,12 @@ app.get("/matchV5", async (req, res) => {
   const playerName = req.query.username;
   const playerTag = req.query.tagline;
   const playerPUUID = await findPlayerPUUID(playerName, playerTag);
-  const matchV5ApiCallList = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerPUUID}/ids?start=0&count=50&api_key=${API_KEY}`;
+  const matchV5ApiCallList = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerPUUID}/ids?start=0&count=5&api_key=${API_KEY}`;
 
   const gameIDS = await axios.get(matchV5ApiCallList);
-  // change back to 20 games when fixed
+
   var matchArray = [];
-  for (var i = 0; i < gameIDS.data.length - 15; i++) {
+  for (var i = 0; i < gameIDS.data.length; i++) {
     const matchID = gameIDS.data[i];
     const matchV5ApiCallMatchData = `https://americas.api.riotgames.com/lol/match/v5/matches/${matchID}?api_key=${API_KEY}`;
 

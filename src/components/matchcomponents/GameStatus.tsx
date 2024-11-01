@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-export default function GameStatus({ gameData }) {
+export default function GameStatus({ gameData, playerData }) {
   function getGameMode(queueId) {
     switch (queueId) {
       case 0:
@@ -46,11 +46,7 @@ export default function GameStatus({ gameData }) {
       </div>
       <div className="border-b border-gray-200 my-2 w-1/5"></div>{" "}
       {/* Divider line */}
-      <div
-        className={`text-gray-700 font-semibold ${
-          gameData.win ? "text-blue-600" : "text-red-600"
-        }`}
-      >
+      <div className={`text-gray-700 font-semibold`}>
         {gameData.win ? "Victory" : "Defeat"}
       </div>
       <div className="text-gray-500 text-sm mt-1">
