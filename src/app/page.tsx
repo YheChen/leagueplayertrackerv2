@@ -187,7 +187,7 @@ export default function Home() {
 
       {/* Bottom Layer with Gray Background */}
       <div
-        className="flex items-start w-full bg-gray-200 px-[14.28vw]"
+        className="flex items-start w-full bg-gray-200 px-[10vw]"
         style={{ height: "75vh" }}
       >
         {/* Left-Aligned Player Rank Data, with spacing from Player Info */}

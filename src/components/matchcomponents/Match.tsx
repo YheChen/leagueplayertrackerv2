@@ -17,7 +17,7 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
     }
   }
 
-  const isWin = playerData.win;
+  const isWin = playerData ? playerData.win : false;
 
   return (
     <div
@@ -35,6 +35,7 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
           isWin={isWin}
         />
       </div>
+      <MatchChamps gameData={gameData} searchUsername={searchUsername} />
     </div>
   );
 }

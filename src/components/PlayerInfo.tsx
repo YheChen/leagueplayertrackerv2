@@ -14,7 +14,7 @@ export default function PlayerInfo({
           alt="Player Icon"
           className="w-24 h-24 rounded-lg"
         />
-        <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white text-sm font-bold px-2 py-1 rounded-l">
+        <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white text-sm font-bold px-2 py-1 rounded-full">
           {playerLevel}
         </span>
       </div>
