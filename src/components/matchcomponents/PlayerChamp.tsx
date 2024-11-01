@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PlayerChamp({ playerData }) {
-  console.log(playerData.championName);
   return (
     <div className="inline-flex ml-[17rem] mt-4 items-center">
       <div className="relative">
@@ -12,7 +11,7 @@ export default function PlayerChamp({ playerData }) {
           className="rounded-full"
           alt={`${playerData.championName}`}
         />
-        <span className="absolute text-white bg-black rounded-full -left-1/4 -top-1 text-xs px-2 py-0.5">
+        <span className="absolute text-white bg-black rounded-full right-0 bottom-0 text-xs w-6 h-6 flex items-center justify-center">
           {playerData.champLevel}
         </span>
       </div>
