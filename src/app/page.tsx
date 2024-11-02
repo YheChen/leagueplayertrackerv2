@@ -113,7 +113,7 @@ export default function Home() {
     }
   };
 
-  console.log(process.env.REACT_APP_API_KEY);
+  console.log(process.env.NEXT_PUBLIC_API_KEY);
   return (
     <div className="h-screen flex flex-col items-start">
       {/* Top Layer */}
