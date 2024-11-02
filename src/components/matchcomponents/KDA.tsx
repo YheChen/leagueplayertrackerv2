@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function KDA({ playerData }) {
-  console.log(playerData);
   return (
     <div className="flex flex-col">
       <div className="font-bold text-lg text-gray-600">

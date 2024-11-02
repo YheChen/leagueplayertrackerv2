@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PlayerStats({ gameData, playerData, isWin }) {
-  console.log(isWin);
   return (
     <div className="flex items-start space-x-4">
       {/* Vertical Line */}

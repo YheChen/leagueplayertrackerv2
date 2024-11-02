@@ -89,6 +89,19 @@ app.get("/matchV5", async (req, res) => {
   res.json(matchArray);
 });
 
+app.get("/champion-mastery", async (req, res) => {
+  const playerName = req.query.username;
+  const playerTag = req.query.tagline;
+  const playerPUUID = await findPlayerPUUID(playerName, playerTag);
+  const championMasterApiCall = `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${playerPUUID}/top?count=1&api_key=${API_KEY}`;
+  try {
+    const response = await axios.get(championMasterApiCall);
+    res.json(response.data); // Sending the response data back to the client
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Sending error response in case of failure
+  }
+});
+
 app.listen(4000, function () {
   console.log("Server started at port 4000");
 });

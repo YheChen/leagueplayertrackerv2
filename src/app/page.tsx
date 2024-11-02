@@ -17,6 +17,7 @@ export default function Home() {
   const [playerData, setPlayerData] = useState(null);
   const [playerRankData, setPlayerRankData] = useState(null);
   const [gameList, setGameList] = useState([]);
+  const [championID, setChampionID] = useState<string | null>(null);
 
   const handleSearchChange = (newUsername, newTagline) => {
     setName(newUsername);
@@ -83,6 +84,26 @@ export default function Home() {
         }
       );
       setGameList(matchResponse.data);
+
+      interface ChampionID {
+        championId: string;
+      }
+
+      const champResponse = await axios.get<ChampionID[]>(
+        "http://localhost:4000/champion-mastery",
+        {
+          params: { username: name, tagline },
+        }
+      );
+
+      // Ensure champResponse.data is available and contains an entry
+      if (champResponse.data && champResponse.data.length > 0) {
+        setChampionID(champResponse.data[0].championId);
+        console.log("Champion ID:", champResponse.data[0].championId);
+      } else {
+        setChampionID(null);
+        console.log("No champion data found.");
+      }
 
       setSearched(true);
     } catch (error) {
