@@ -75,7 +75,7 @@ app.get("/matchV5", async (req, res) => {
   const playerName = req.query.username;
   const playerTag = req.query.tagline;
   const playerPUUID = await findPlayerPUUID(playerName, playerTag);
-  const matchV5ApiCallList = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerPUUID}/ids?start=0&count=5&api_key=${API_KEY}`;
+  const matchV5ApiCallList = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerPUUID}/ids?start=0&count=20&api_key=${API_KEY}`;
 
   const gameIDS = await axios.get(matchV5ApiCallList);
 
