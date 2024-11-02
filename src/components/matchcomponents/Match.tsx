@@ -4,7 +4,8 @@ import MatchChamps from "./MatchChamps";
 import PlayerGameInfo from "./PlayerGameInfo";
 
 export default function Match({ gameData, searchUsername, searchTagline }) {
-  const playerList = gameData.info.participants;
+  const playerList = gameData?.info?.participants || [];
+
   let playerData = null;
 
   for (let i = 0; i < playerList.length; i++) {
