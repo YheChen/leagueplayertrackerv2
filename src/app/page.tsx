@@ -8,6 +8,7 @@ import SearchButton from "../components/SearchButton";
 import PlayerInfo from "../components/PlayerInfo";
 import PlayerRankData from "../components/PlayerRankData";
 import Matches from "../components/Matches";
+// import ChampionBanner from "../components/ChampionBanner";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -99,7 +100,6 @@ export default function Home() {
       // Ensure champResponse.data is available and contains an entry
       if (champResponse.data && champResponse.data.length > 0) {
         setChampionID(champResponse.data[0].championId);
-        console.log("Champion ID:", champResponse.data[0].championId);
       } else {
         setChampionID(null);
         console.log("No champion data found.");
@@ -138,21 +138,18 @@ export default function Home() {
         <>
           {/* Middle Layer with Player Info */}
           <div
-            className="flex items-center"
-            style={{
-              transform: "translateY(-25%)",
-              height: "100vh",
-              minHeight: "50vh",
-              width: "33vw",
-              marginLeft: "14.28vw",
-            }}
+            className="relative w-full h-[50vh] min-h-[300px] flex items-start"
+            style={{ paddingLeft: "10vw", paddingTop: "2rem" }}
           >
-            <PlayerInfo
-              playerName={name}
-              playerTagline={tagline}
-              playerLevel={playerData?.summonerLevel}
-              playerIconID={playerData?.profileIconId}
-            />
+            <div className="flex flex-col items-center">
+              <PlayerInfo
+                playerName={name}
+                playerTagline={tagline}
+                playerLevel={playerData?.summonerLevel}
+                playerIconID={playerData?.profileIconId}
+              />
+            </div>
+            {/* <ChampionBanner championID={championID} /> */}
           </div>
 
           {/* Bottom Layer with Gray Background */}

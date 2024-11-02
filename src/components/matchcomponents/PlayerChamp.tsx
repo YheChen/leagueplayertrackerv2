@@ -1,6 +1,9 @@
 import React from "react";
 
 export default function PlayerChamp({ playerData }) {
+  if (!playerData || !playerData.championName) {
+    return null;
+  }
   return (
     <div>
       <div className="relative">
