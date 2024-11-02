@@ -3,7 +3,6 @@
 require("dotenv").config();
 
 const API_KEY = process.env.API_KEY;
-console.log(API_KEY);
 // const API_KEY = "RGAPI-505d2833-da03-4162-b3ba-244fdca0f5a7";
 
 const express = require("express");

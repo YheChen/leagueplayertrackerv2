@@ -1,6 +1,14 @@
 import React from "react";
 
 export default function KDA({ playerData }) {
+  if (
+    !playerData ||
+    playerData.kills === undefined ||
+    playerData.assists === undefined ||
+    playerData.deaths === undefined
+  ) {
+    return <div>Loading player stats...</div>;
+  }
   return (
     <div className="flex flex-col">
       <div className="font-bold text-lg text-gray-600">
