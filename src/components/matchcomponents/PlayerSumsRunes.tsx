@@ -185,6 +185,10 @@ export default function PlayerSumsRunes({ playerData }) {
         return null;
     }
   }
+  if (!playerData) {
+    return <div>Loading player data...</div>;
+  }
+
   return (
     <div className="flex space-x-1 items-center">
       {/* Summoner Spells */}
