@@ -185,7 +185,7 @@ export default function PlayerSumsRunes({ playerData }) {
         return null;
     }
   }
-  if (!playerData) {
+  if (!playerData || !playerData.summoner1Id || !playerData.summoner2Id) {
     return <div>Loading player data...</div>;
   }
 
