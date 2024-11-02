@@ -37,10 +37,21 @@ export default function Home() {
       );
       setPlayerData(summonerResponse.data);
 
+      interface LeagueEntry {
+        queueType: string;
+        tier: string;
+        rank: string;
+        leaguePoints: number;
+        wins: number;
+        losses: number;
+      }
       // Fetch League Data
-      const leagueResponse = await axios.get("http://localhost:4000/leagueV4", {
-        params: { username: name, tagline },
-      });
+      const leagueResponse = await axios.get<LeagueEntry[]>(
+        "http://localhost:4000/leagueV4",
+        {
+          params: { username: name, tagline },
+        }
+      );
 
       // Ensure we have data and take the first entry (for solo queue or primary rank)
       if (leagueResponse.data && leagueResponse.data.length > 0) {
@@ -59,10 +70,18 @@ export default function Home() {
         setPlayerRankData(null); // No rank data available
       }
 
+      interface MatchData {
+        // Define the fields based on your API response structure
+        matchId: string; // Example field, replace with actual fields
+        // Add more fields as per your match data structure
+      }
       // Fetch Match History Data
-      const matchResponse = await axios.get("http://localhost:4000/matchV5", {
-        params: { username: name, tagline },
-      });
+      const matchResponse = await axios.get<MatchData[]>(
+        "http://localhost:4000/matchV5",
+        {
+          params: { username: name, tagline },
+        }
+      );
       setGameList(matchResponse.data);
 
       setSearched(true);
