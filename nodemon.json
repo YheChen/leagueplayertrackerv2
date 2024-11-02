@@ -1,5 +1,6 @@
 {
   "watch": ["src/server"],
   "ext": "js,json",
+  "ignore": ["node_modules"],
   "exec": "node src/server/proxyServer.js"
 }
