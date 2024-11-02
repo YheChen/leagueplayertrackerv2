@@ -1,8 +1,13 @@
-require("dotenv").config();
-const API_KEY = process.env.REACT_APP_API_KEY;
+/* eslint-disable @typescript-eslint/no-require-imports */
 
-var express = require("express");
-var cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_KEY = "RGAPI-505d2833-da03-4162-b3ba-244fdca0f5a7";
+
+const express = require("express");
+const cors = require("cors");
 const axios = require("axios");
 
 var app = express();

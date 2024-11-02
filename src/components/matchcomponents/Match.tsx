@@ -26,9 +26,9 @@ export default function Match({ gameData, searchUsername, searchTagline }) {
       }`}
     >
       <div className="flex-shrink-0">
-        <GameStatus gameData={gameData} playerData={playerData} isWin={isWin} />
+        <GameStatus gameData={gameData} isWin={isWin} />
       </div>
-      <div className="flex items-center justify-between w-3/4">
+      <div className="flex items-center justify-between w-3/4 ">
         <PlayerGameInfo
           gameData={gameData}
           playerData={playerData}

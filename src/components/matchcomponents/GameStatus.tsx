@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-export default function GameStatus({ gameData, playerData, isWin }) {
+export default function GameStatus({ gameData, isWin }) {
   function getGameMode(queueId) {
     switch (queueId) {
       case 0:
