@@ -137,7 +137,7 @@ export default function Home() {
         </div>
       ) : searched ? (
         <>
-          {/* Middle Layer with Player Info */}
+          {/* Middle Layer with Player Info test */}
           <div
             className="relative w-full h-[50vh] min-h-[300px] flex items-start"
             style={{ paddingLeft: "10vw", paddingTop: "2rem" }}
