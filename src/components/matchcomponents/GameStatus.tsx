@@ -11,7 +11,7 @@ export default function GameStatus({ gameData, isWin }) {
       case 420:
         return "Ranked Solo";
       case 430:
-        return "Normal Blind";
+        return "Normal";
       case 440:
         return "Ranked Flex";
       case 450:
