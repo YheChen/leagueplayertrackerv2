@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "start:api": "nodemon src/server/proxyServer.js",
-    "lint": "next lint"
+    "start:both": "concurrently \"npm run dev\" \"npm run start:api\""
   },
   "dependencies": {
     "@types/axios": "^0.9.36",
@@ -26,6 +26,7 @@
     "@types/node": "^20.17.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^9.1.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "nodemon": "^3.1.7",
